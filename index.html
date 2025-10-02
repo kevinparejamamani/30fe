@@ -1,0 +1,149 @@
+
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dedicatoria de Aniversario</title>
+  <style>
+    :root{
+      --bg:#fff5f7;
+      --card:#ffffff;
+      --accent:#e63946;
+      --accent-2:#ff7b9c;
+      --text:#2b2b2b;
+      --muted:#6b7280;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family: 'Georgia', 'Times New Roman', serif;background:linear-gradient(180deg,var(--bg),#fff);color:var(--text);display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+
+    .card{width:100%;max-width:880px;background:var(--card);border-radius:16px;box-shadow:0 10px 40px rgba(15,23,42,0.08);overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+
+    .left{padding:36px 28px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+    .title{font-family: 'Georgia', serif;font-size:28px;color:var(--accent);margin:0}
+    .subtitle{margin:0;color:var(--muted);font-size:14px}
+
+    .message{font-size:16px;line-height:1.6;margin-top:8px}
+    .signature{margin-top:18px;font-weight:700;color:var(--accent-2)}
+
+    .photo-side{position:relative;background:linear-gradient(135deg, rgba(230,57,70,0.06), rgba(255,123,156,0.06));display:flex;align-items:center;justify-content:center;padding:16px}
+    .photo{width:100%;max-width:360px;height:auto;border-radius:12px;object-fit:cover;box-shadow:0 12px 30px rgba(227,57,70,0.12);border:6px solid rgba(255,255,255,0.6)}
+
+    .hearts{position:absolute;inset:12px;pointer-events:none}
+    .heart{position:absolute;width:20px;height:20px;transform:translate(-50%,-50%);opacity:0.9}
+
+    .controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700;flex:1;min-width:120px;text-align:center}
+    .btn.ghost{background:transparent;color:var(--accent);border:2px solid rgba(227,57,70,0.12)}
+
+    /* responsive */
+    @media (max-width:780px){
+      body{padding:12px}
+      .card{grid-template-columns:1fr}
+      .left{padding:24px 18px}
+      .title{font-size:22px}
+      .message{font-size:15px}
+      .photo{max-width:100%;height:auto}
+    }
+
+    @media (max-width:480px){
+      .title{font-size:20px}
+      .message{font-size:14px}
+      .controls{flex-direction:column}
+      .btn{min-width:100%}
+    }
+
+    /* subtle entrance animation */
+    .card{animation: floatIn 600ms ease both}
+    @keyframes floatIn{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+
+    /* confetti pieces */
+    .confetti-piece{position:fixed;width:8px;height:12px;background:var(--accent);opacity:0.95;z-index:9999;border-radius:2px}
+  </style>
+</head>
+<body>
+  <main class="card" id="card">
+    <section class="left">
+      <h1 class="title">Feliz CUMPLEAÑOS, mi BELLA PROFE ❤️</h1>
+      <p class="subtitle">Hoy celebramos TUS 30 AÑITOS — gracias por cada sonrisa.</p>
+
+      <div class="message" id="message">
+        Amor mío,<br><br>
+        Desde el primer día supe que eras alguien especial Aunque seas renegonita . Gracias por tu ternura, por tu paciencia y por transformar lo cotidiano en algo mágico. Cada recuerdo a tu lado es un tesoro, y hoy deseo que sepamos celebrar lo que fuimos, lo que somos y lo que vendrá.<br><br>
+        Te amo por cada añito.
+      </div>
+
+      <div class="signature">Con todo mi corazón — <span id="fromName">Tu GORDO</span></div>
+
+      <div class="controls">
+        <a class="btn ghost" href="primero.html" for="photoInput">SEGUIR</a>
+        <input id="photoInput" type="file" accept="image/*" style="display:none">
+
+      </div>
+
+    </section>
+
+    <aside class="photo-side">
+      <img id="photo" class="photo" src="img/1.jpeg" alt="Foto de nosotros">
+      <div class="hearts" aria-hidden>
+        <svg class="heart" style="left:18%;top:20%" viewBox="0 0 24 24"><path fill="#ff6b81" d="M12 21s-7.5-4.9-9.4-8.1C.9 7.7 5.6 3 9.9 5.3c1.7.9 1.6 2.9 2.1 2.9s.4-2 2.1-2.9C18.4 3 23.1 7.7 21.4 12.9 19.5 16.1 12 21 12 21z"/></svg>
+        <svg class="heart" style="left:78%;top:45%" viewBox="0 0 24 24"><path fill="#ff9aa2" d="M12 21s-7.5-4.9-9.4-8.1C.9 7.7 5.6 3 9.9 5.3c1.7.9 1.6 2.9 2.1 2.9s.4-2 2.1-2.9C18.4 3 23.1 7.7 21.4 12.9 19.5 16.1 12 21 12 21z"/></svg>
+        <svg class="heart" style="left:50%;top:78%" viewBox="0 0 24 24"><path fill="#ff6b6b" d="M12 21s-7.5-4.9-9.4-8.1C.9 7.7 5.6 3 9.9 5.3c1.7.9 1.6 2.9 2.1 2.9s.4-2 2.1-2.9C18.4 3 23.1 7.7 21.4 12.9 19.5 16.1 12 21 12 21z"/></svg>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const from = params.get('from');
+    if(from){ document.getElementById('fromName').textContent = from; }
+
+    const photoInput = document.getElementById('photoInput');
+    const photo = document.getElementById('photo');
+    photoInput.addEventListener('change', (e)=>{
+      const f = e.target.files && e.target.files[0];
+      if(!f) return;
+      const r = new FileReader();
+      r.onload = ()=> photo.src = r.result;
+      r.readAsDataURL(f);
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', ()=>{
+      const html = '<!doctype html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], {type:'text/html'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'dedicatoria-aniversario.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    function throwConfetti(){
+      const count = 60;
+      for(let i=0;i<count;i++){
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random()*100 + '%';
+        el.style.top = '-10px';
+        el.style.width = (6+Math.random()*10)+'px';
+        el.style.height = (8+Math.random()*12)+'px';
+        el.style.background = ['#ff6b6b','#ff9aa2','#ffd166','#f7aef8','#90e0ef'][Math.floor(Math.random()*5)];
+        el.style.transform = 'rotate('+Math.random()*360+'deg)';
+        document.body.appendChild(el);
+        const fall = el.animate([
+          {transform: `translateY(0) rotate(${Math.random()*360}deg)`, opacity:1},
+          {transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random()*720}deg)`, opacity:0}
+        ],{duration: 2000 + Math.random()*1200, easing: 'cubic-bezier(.2,.7,.2,1)'});
+        fall.onfinish = ()=> el.remove();
+      }
+    }
+
+    document.getElementById('confettiBtn').addEventListener('click', ()=>{
+      throwConfetti();
+      const msg = document.getElementById('message');
+      msg.animate([{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}],{duration:500});
+    });
+  </script>
+</body>
+</html>

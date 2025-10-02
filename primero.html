@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz 30 Cumpleaños!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales para el cuerpo de la página */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif; /* Fuente principal */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('img/1.jpeg'); /* Reemplaza con una imagen de cumpleaños */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden; /* Para evitar barras de desplazamiento si los adornos se salen */
+        }
+
+        /* Estilos para el contenedor del mensaje */
+        .contenedor-cumpleanos {
+            text-align: center;
+            padding: 50px 70px; /* Más relleno */
+            background: linear-gradient(45deg, rgba(255, 105, 180, 0.85), rgba(255, 215, 0, 0.85)); /* Degradado festivo */
+            border-radius: 20px; /* Bordes más redondeados */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Sombra más pronunciada */
+            max-width: 90%;
+            position: relative; /* Para posicionar adornos internos */
+            border: 5px solid #fff; /* Borde blanco alrededor */
+            animation: bounceIn 1s ease-out; /* Animación de entrada */
+        }
+
+        /* Animación de entrada */
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Estilos para el mensaje principal */
+        .mensaje-principal {
+            font-family: 'Dancing Script', cursive; /* Fuente elegante para el mensaje */
+            color: #ffffff;
+            font-size: 3.8em; /* Tamaño de fuente aún más grande */
+            margin-bottom: 25px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4); /* Sombra para el texto */
+            line-height: 1.2;
+            animation: pulse 2s infinite alternate; /* Animación de pulsación */
+        }
+
+        /* Animación de pulsación para el mensaje */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.03); }
+        }
+
+        /* Estilos para el contador de años */
+        .contador-anos {
+            font-family: 'Montserrat', sans-serif;
+            color: #ffe08a; /* Dorado brillante */
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-top: -10px; /* Ajuste para que quede cerca del mensaje */
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 10px;
+            border: 1px solid #ffe08a;
+        }
+
+        /* Estilos para la dedicatoria */
+        .dedicatoria {
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            font-size: 1.4em; /* Tamaño de fuente más grande */
+            margin-top: 30px;
+            border-top: 2px solid rgba(255, 255, 255, 0.7); /* Línea separadora más gruesa */
+            padding-top: 20px;
+            font-style: italic;
+            line-height: 1.5;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Adornos de Confeti (ejemplo, puedes añadir más) */
+        .confeti {
+            position: absolute;
+            background-color: #ffeb3b; /* Amarillo */
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fallConfetti 8s infinite ease-out;
+        }
+
+        .confeti:nth-child(1) { top: 10%; left: 20%; background-color: #f44336; animation-delay: 0s; }
+        .confeti:nth-child(2) { top: 5%; left: 70%; background-color: #2196f3; animation-delay: 1.5s; }
+        .confeti:nth-child(3) { top: 20%; left: 45%; background-color: #4caf50; animation-delay: 3s; }
+        .confeti:nth-child(4) { top: 15%; left: 10%; background-color: #ff9800; animation-delay: 4.5s; }
+        .confeti:nth-child(5) { top: 30%; left: 80%; background-color: #9c27b0; animation-delay: 6s; }
+        .confeti:nth-child(6) { top: 25%; left: 30%; background-color: #00bcd4; animation-delay: 7.5s; }
+
+
+        @keyframes fallConfetti {
+            0% { transform: translateY(-100px) rotateZ(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0.5; }
+        }
+
+        /* Pequeño detalle de globo flotando */
+        .globo {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            background-color: #e91e63; /* Rosa */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            bottom: -50px; /* Empieza fuera de la pantalla */
+            left: 15%;
+            box-shadow: inset -5px -5px 0 rgba(0,0,0,0.1);
+            animation: floatGlobo 10s infinite ease-in-out;
+            z-index: -1; /* Detrás del mensaje */
+        }
+
+        .globo::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 50px;
+            background-color: #ccc;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        @keyframes floatGlobo {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            50% { transform: translateY(-200px) rotate(5deg); opacity: 1; }
+            100% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="confeti"></div>
+    <div class="confeti"></div>
+    <div class="confeti"></div>
+    <div class="confeti"></div>
+    <div class="confeti"></div>
+    <div class="confeti"></div>
+
+    <div class="globo"></div>
+
+
+    <div class="contenedor-cumpleanos">
+        <h1 class="mensaje-principal">
+            🎉 ¡Feliz Cumpleaños! 🎉<br>
+            ¡Que tengas un día increíble!
+        </h1>
+        <div class="contador-anos">
+            ✨ ¡30 Años de Maravilla! ✨
+        </div>
+        <p class="dedicatoria">
+            Hoy celebramos no solo un año más, sino la maravillosa persona en que te has convertido.
+            Que la alegría te acompañe siempre.
+            <br>Con todo mi amor y admiración,
+            <br>- Tu gordo
+        </p>
+        <div >
+           <a class="contador-anos" href="segundo.html">SEGUIR</a> ✨ 
+        </div>
+    </div>
+
+</body>
+</html>

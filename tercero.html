@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestros Recuerdos Visuales con Modal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Generales y Resets */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 1. SECCIÓN PRINCIPAL DE INICIO CON FONDO Y MENSAJE */
+        .seccion-inicio {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            
+            /* --- FONDO GRANDE --- */
+            background-image: url('img/2.jpeg'); /* REEMPLAZA ESTO */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        .mensaje-introduccion {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 50px 70px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            max-width: 800px;
+            margin: 20px;
+        }
+
+        .mensaje-introduccion h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .mensaje-introduccion p {
+            font-size: 1.3em;
+            line-height: 1.5;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 2. SECCIÓN DE GALERÍA DE IMÁGENES */
+        .seccion-galeria {
+            background-color: #f8f8f8;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .seccion-galeria h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8em;
+            color: #4a148c;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .seccion-galeria h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -15px;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #d81b60;
+            border-radius: 2px;
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .item-foto {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: left;
+            cursor: pointer; /* Indica que se puede hacer clic */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .item-foto:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .item-foto img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .item-foto .descripcion {
+            padding: 25px;
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        .item-foto .descripcion h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d81b60;
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        /* --- ESTILOS DEL MODAL (VENTANA EMERGENTE) --- */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Posición fija en la pantalla */
+            z-index: 1000; /* Siempre encima de todo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo negro semi-transparente */
+            padding-top: 60px;
+        }
+
+        .modal-contenido {
+            margin: auto;
+            display: block;
+            width: 85%;
+            max-width: 900px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        .modal-contenido img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh; /* Máximo 80% de la altura de la ventana */
+            object-fit: contain;
+            display: block;
+        }
+
+        .caption {
+            margin: auto;
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            padding: 20px 0;
+            color: #333;
+            font-size: 1.2em;
+            font-weight: 600;
+            background-color: #fff;
+        }
+
+        /* Botón de Cierre */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Animación para la aparición del modal */
+        @keyframes zoom {
+            from {transform: scale(0)} 
+            to {transform: scale(1)}
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            .mensaje-introduccion h1 {
+                font-size: 2.2em;
+            }
+            .item-foto img {
+                height: 250px;
+            }
+            .modal-contenido {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="seccion-inicio">
+        <div class="mensaje-introduccion">
+            <h1>Un Viaje a Través de Nuestros Recuerdos</h1>
+            <p>
+                Cada imagen cuenta NUESTRA HISTORIA PRECISOA, cada momento compartido un tesoro.
+        </div>
+    </div>
+
+    <div class="seccion-galeria">
+        <h2>Momentos Inolvidables</h2>
+        <div class="galeria-grid">
+            
+            <div class="item-foto" 
+                 onclick="abrirModal('img/3.jpeg', 'Siempre seras una gran persona y tus amigos lo saben .')">
+                <img src="img/3.jpeg" alt="Con tus amigas ">
+                <div class="descripcion">
+                    <h3>Tus aventuras con tu amiga </h3>
+                    <p>Ese día especial en ya que escalaste , cuando  te morias de frio.</p>
+                </div>
+            </div>
+
+            <div class="item-foto" 
+                 onclick="abrirModal('img/4.jpeg', 'Aveces tienes hielo en tu corazon')">
+                <img src="img/4.jpeg" alt="Aventura en la Naturaleza">
+                <div class="descripcion">
+                    <h3>Aventura en  las nieves </h3>
+                    <p>Explorando la cueva de hielo.</p>
+                </div>
+            </div>
+
+            <div class="item-foto" 
+                 onclick="abrirModal('img/5.jpeg', 'GORDEANDOME COMO SIEMPRE.')">
+                <img src="img/5.jpeg" alt="Una Noche Inolvidable">
+                <div class="descripcion">
+                    <h3>Una Aventura en el valle sagrado </h3>
+                    <p>corriendo y bajando
+                        .</p>
+                </div>
+            </div>
+
+    
+                                                    <div class="item-foto" 
+                 onclick="abrirModal('img/27.jpeg', 'EN EL CASTILLO')">
+                <img src="img/27.jpeg" alt="T">
+                <div class="descripcion">
+                    <h3>MIRANDO LOS DINOSAURIS </h3>
+                    <p>TUN BONITO RECUERDO</p>
+                    
+                </div>
+            
+            </div>
+                                                                <div class="item-foto" 
+                 onclick="abrirModal('img/28.jpeg', 'EN EL CASTILLO')">
+                <img src="img/28.jpeg" alt="T">
+                <div class="descripcion">
+                    <h3>AL parque de la aguas </h3>
+                    <p>TUN BONITO RECUERDO</p>
+                    
+                </div>
+
+
+            </div>
+                                                                                            <div class="item-foto" 
+                 onclick="abrirModal('img/29.jpeg', 'EN EL CASTILLO')">
+                <img src="img/29.jpeg" alt="T">
+                <div class="descripcion">
+                    <h3>PARACAS </h3>
+                    <p>FUE DIVERTIDO</p>
+                    
+                </div>
+                         </div>                                                                                 
+                <div class="item-foto" 
+                 onclick="abrirModal('img/30.jpeg', 'EN EL CASTILLO')">
+                <img src="img/30.jpeg" alt="T">
+                <div class="descripcion">
+                    <h3>CON LOS BAILARINES </h3>
+                    <p>FUE DIVERTIDO</p>
+                    
+                </div>
+                </div>
+                                                         <div class="item-foto" 
+                 onclick="abrirModal('img/31.jpeg', 'EN EL DESIERTO')">
+                <img src="img/31.jpeg" alt="Nuestra Pequeña Tradición">
+                <div class="descripcion">
+                    <h3>QUEMADITOS EN LA ARENA</h3>
+                    <p>PERU TU FELIZ.</p>
+            
+                </div>
+                 </div>
+
+                                                                          <div class="item-foto" 
+                 onclick="abrirModal('img/32.jpeg', 'CON LAS FOQUITAS')">
+                <img src="img/32.jpeg" alt="Nuestra Pequeña Tradición">
+                <div class="descripcion">
+                    <h3>CON LAS FOQUITAS</h3>
+                    <p>MIRANDO COMO DESCANZAN.</p>
+            
+                </div>
+                 </div>
+                                                                    
+                <div id="miModal" class="modal" onclick="cerrarModal()">
+        
+        <button class="close" title="Cerrar">CERRAR</button>
+        
+        <div class="modal-contenido">
+            <img id="imgModal" src="">
+            <div id="caption" class="caption"></div>
+        </div>
+    </div>
+
+    </div>
+
+
+    <script>
+        // Obtener el modal
+        var modal = document.getElementById("miModal");
+
+        // Obtener elementos del modal
+        var imgModal = document.getElementById("imgModal");
+        var captionText = document.getElementById("caption");
+
+        /**
+         * Abre el modal con la imagen y la descripción proporcionadas.
+         * @param {string} src La URL de la imagen a mostrar.
+         * @param {string} desc La descripción de la imagen.
+         */
+        function abrirModal(src, desc) {
+            // Detener la propagación del evento para evitar que cerrarModal() se dispare inmediatamente
+            event.stopPropagation();
+            modal.style.display = "block";
+            imgModal.src = src;
+            captionText.innerHTML = desc;
+            // Opcional: Evitar el scroll en el cuerpo cuando el modal está abierto
+            document.body.style.overflow = "hidden"; 
+        }
+
+        /**
+         * Cierra el modal.
+         */
+        function cerrarModal() {
+            modal.style.display = "none";
+            // Restaurar el scroll del cuerpo
+            document.body.style.overflow = "auto";
+        }
+
+        // Obtener el botón de cerrar y asignar el evento
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = cerrarModal;
+
+        // Cierra el modal si el usuario hace clic fuera del contenido de la imagen
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                cerrarModal();
+            }
+        }
+    </script>
+    
+    <footer>
+        <p>&copy; 2023 [Tu Nombre]. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
